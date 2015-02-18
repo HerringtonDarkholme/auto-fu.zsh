@@ -463,6 +463,10 @@ afu-register-zle-accept-line () {
   local rawzle=".${afufun#*+}"
   local code=${"$(<=(cat <<"EOT"
   $afufun () {
+    : ${(A)cur::=${=afu_rh_state[cur]-}}
+    [[ -n "$cur" ]] && [[ "$cur[1]" == completion/* ]] && {
+    	BUFFER=${BUFFER::$cur[2]}
+    }
     __accepted=($WIDGET ${=NUMERIC:+-n $NUMERIC} "$@")
     zle $rawzle && {
       local hi
