@@ -463,8 +463,8 @@ afu-register-zle-accept-line () {
   local rawzle=".${afufun#*+}"
   local code=${"$(<=(cat <<"EOT"
   $afufun () {
-    BUFFER="$buffer_cur"
     __accepted=($WIDGET ${=NUMERIC:+-n $NUMERIC} "$@")
+    BUFFER="$buffer_cur"
     zle $rawzle && {
       local hi
       zstyle -s ':auto-fu:highlight' input hi
