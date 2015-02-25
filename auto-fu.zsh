@@ -464,9 +464,10 @@ afu-register-zle-accept-line () {
   local code=${"$(<=(cat <<"EOT"
   $afufun () {
     __accepted=($WIDGET ${=NUMERIC:+-n $NUMERIC} "$@")
-  [[ -z "${afu_one_match_p-}" ]] && ((afu_in_p==1)) && {
-    BUFFER="$buffer_cur"
-  }
+    : ${(A)cur::=${=afu_rh_state[cur]-}}
+    [[ -n "$cur" ]] && [[ "$cur[1]" == completion/* ]] && {
+    	BUFFER="$buffer_cur"
+    }
     zle $rawzle && {
       local hi
       zstyle -s ':auto-fu:highlight' input hi
