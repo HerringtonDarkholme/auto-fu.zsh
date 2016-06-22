@@ -1,34 +1,74 @@
+zsh automatic complete-word and list-choices
+---
+
 <img src="https://github.com/hchbaw/auto-fu.zsh/raw/readme/auto-fu.gif" />
 
-zsh automatic complete-word and list-choices
 
 Originally incr-0.2.zsh
+
 Incremental completion for zsh
+
 by y.fujii &lt;y-fujii at mimosa-pudica.net&gt;
 
 Thank you very much y.fujii!
 
 Adapted by Takeshi Banse &lt;takebi@laafc.net&gt;, public domain
+
+
 I want to use it with menu selection.
 
 To use this,
-1) source this file.
+---
+
+1. source this file.
+```
 % source auto-fu.zsh
-2) establish `zle-line-init' containing `auto-fu-init' something like below.
+```
+
+2. establish `zle-line-init' containing `auto-fu-init' something like below.
+
+```
 % zle-line-init () {auto-fu-init;}; zle -N zle-line-init
-3) use the _oldlist completer something like below.
+```
+
+3. use the `_oldlist` completer something like below.
+
+```
 % zstyle ':completion:*' completer _oldlist _complete
-(If you have a lot of completer, please insert _oldlist before _complete.)
-4) establish `zle-keymap-select' containing `auto-fu-zle-keymap-select'.
+```
+
+(If you have a lot of completer, please insert `_oldlist` before `_complete`.)
+
+4. establish `zle-keymap-select' containing `auto-fu-zle-keymap-select'.
+
+```
 % zle -N zle-keymap-select auto-fu-zle-keymap-select
+```
+
 (This enables the afu-vicmd keymap switching coordinates a bit.)
+
+
+Precompile
+----
+
 *Optionally* you can use the zcompiled file for a little faster loading on
+
 every shell startup, if you zcompile the necessary functions.
-*1) zcompile the defined functions. (generates ~/.zsh/auto-fu.zwc)
+
+1. zcompile the defined functions. (generates ~/.zsh/auto-fu.zwc)
+
+```
 % A=/path/to/auto-fu.zsh; (zsh -c "source $A ; auto-fu-zcompile $A ~/.zsh")
-*2) source the zcompiled file instead of this file and some tweaks.
+```
+
+2. source the zcompiled file instead of this file and some tweaks.
+
+```
 % source ~/.zsh/auto-fu; auto-fu-install
-*3) establish `zle-line-init' and such (same as a few lines above).
+```
+
+3. establish `zle-line-init' and such (same as a few lines above).
+
 Note:
 It is approximately *(6~10) faster if zcompiled, according to this result :)
 TIMEFMT="%*E %J"
