@@ -87,6 +87,7 @@ Manual
 Here is the auto-fu-zcompile manual.
 
 --- &gt;8 ---
+```
 NAME
        auto-fu-zcompile - zcompile auto-fu
 SYNOPSIS
@@ -138,9 +139,12 @@ EXAMPLES
                afu+orf-exit-deletechar-list exit afu+my-kill-line-maybe
 &lt;
            Using `afu-register-zle-eof' to customize the &lt;C-d&gt; behaviors.
+```
 --- 8&lt; ---
 
-Configuration
+Configuration:
+---
+
 The auto-fu features can be configured via zstyle.
 
 `:auto-fu:highlight`
@@ -156,19 +160,23 @@ The auto-fu features can be configured via zstyle.
 
 `:auto-fu:var`
   * postdisplay
+
     An initial indication string for POSTDISPLAY in auto-fu-init.
 
   * postdisplay/clearp
+
     If set, POSTDISPLAY will be cleared after the accept-lines.
     'yes' by default.
 
   * enable
+
     A list of zle widget names the automatic complete-word and
     list-choices to be triggered after its invocation.
     Only with ALL in 'enable', the 'disable' style has any effect.
     ALL by default.
 
   * disable
+
     A list of zle widget names you do *NOT* want the complete-word to be
     triggered. Only used if 'enable' contains ALL. For example,
       zstyle ':auto-fu:var' enable all
@@ -177,6 +185,7 @@ The auto-fu features can be configured via zstyle.
     space-bar, otherwise automatic thing will be taken into account.
 
   * track-keymap-skip
+
     A list of keymap names to *NOT* be treated as a keymap change.
     In other words, these keymaps cannot be used with the standalone main
     keymap. For example "opp". If you use my opp.zsh, please add an 'opp'
@@ -185,9 +194,11 @@ The auto-fu features can be configured via zstyle.
   * autoable-function/skipwords
   * autoable-function/skiplbuffers
   * autoable-function/skiplines
+
     A list of patterns to *NOT* be treated as auto-stuff appropriate.
     These patterns will be tested against the part of the command line
     buffer as shown on the below figure:
+
     (*) is used to denote the cursor position.
 
 	```
@@ -201,14 +212,23 @@ The auto-fu features can be configured via zstyle.
 
     - To disable auto-stuff inside single and also double quotes.
       And less than 3 chars before the cursor.
+
+	```
       zstyle ':auto-fu:var' autoable-function/skipwords \
         "('|$'|")*" "^((???)##)"
+	```
+
     - To disable the rm's first option, and also after the '(cvs|svn) co'.
+	```
       zstyle ':auto-fu:var' autoable-function/skiplbuffers \
         'rm -[![:blank:]]#' '(cvs|svn) co *'
+	```
+
     - To disable after the 'aptitude word '.
+	```
       zstyle ':auto-fu:var' autoable-function/skiplines \
         '([[:print:]]##[[:space:]]##|(#s)[[:space:]]#)aptitude [[:print:]]# *'
+	```
 
   autoable-function/preds
     A list of functions to be called whether auto-stuff appropriate or not.
