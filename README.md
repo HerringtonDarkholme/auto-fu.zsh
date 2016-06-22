@@ -1,6 +1,5 @@
 <img src="https://github.com/hchbaw/auto-fu.zsh/raw/readme/auto-fu.gif" />
 
-<pre>
 zsh automatic complete-word and list-choices
 
 Originally incr-0.2.zsh
@@ -267,4 +266,3 @@ Documentation typo fix.
 
 v0.0.1
 Initial version.
-</pre>
