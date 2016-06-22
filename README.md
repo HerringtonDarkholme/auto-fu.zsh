@@ -70,11 +70,22 @@ every shell startup, if you zcompile the necessary functions.
 3. establish `zle-line-init' and such (same as a few lines above).
 
 Note:
+---
+
 It is approximately *(6~10) faster if zcompiled, according to this result :)
+
+
+```
 TIMEFMT="%*E %J"
 0.041 ( source ./auto-fu.zsh; )
 0.004 ( source ~/.zsh/auto-fu; auto-fu-install; )
+```
+
+Manual
+----
+
 Here is the auto-fu-zcompile manual.
+
 --- &gt;8 ---
 NAME
        auto-fu-zcompile - zcompile auto-fu
@@ -132,49 +143,62 @@ EXAMPLES
 Configuration
 The auto-fu features can be configured via zstyle.
 
-:auto-fu:highlight
-  input
+`:auto-fu:highlight`
+  * input
     A highlight specification used for user input string.
-  completion
+
+  * completion
     A highlight specification used for completion string.
-  completion/one
+
+  * completion/one
     A highlight specification used for completion string if it is the
     only one candidate.
-:auto-fu:var
-  postdisplay
+
+`:auto-fu:var`
+  * postdisplay
     An initial indication string for POSTDISPLAY in auto-fu-init.
-  postdisplay/clearp
+
+  * postdisplay/clearp
     If set, POSTDISPLAY will be cleared after the accept-lines.
     'yes' by default.
-  enable
+
+  * enable
     A list of zle widget names the automatic complete-word and
     list-choices to be triggered after its invocation.
     Only with ALL in 'enable', the 'disable' style has any effect.
     ALL by default.
-  disable
+
+  * disable
     A list of zle widget names you do *NOT* want the complete-word to be
     triggered. Only used if 'enable' contains ALL. For example,
       zstyle ':auto-fu:var' enable all
       zstyle ':auto-fu:var' disable magic-space
     yields; complete-word will not be triggered after pressing the
     space-bar, otherwise automatic thing will be taken into account.
-  track-keymap-skip
+
+  * track-keymap-skip
     A list of keymap names to *NOT* be treated as a keymap change.
     In other words, these keymaps cannot be used with the standalone main
     keymap. For example "opp". If you use my opp.zsh, please add an 'opp'
     to this zstyle.
-  autoable-function/skipwords
-  autoable-function/skiplbuffers
-  autoable-function/skiplines
+
+  * autoable-function/skipwords
+  * autoable-function/skiplbuffers
+  * autoable-function/skiplines
     A list of patterns to *NOT* be treated as auto-stuff appropriate.
     These patterns will be tested against the part of the command line
     buffer as shown on the below figure:
     (*) is used to denote the cursor position.
+
+	```
       # nocorrect aptitude --assume-*yes -d install zsh && echo ready
                            &lt;--------&gt;skipwords
                   &lt;-----------------&gt;skiplbuffers
                   &lt;-----------------------------------&gt;skplines
-    Examples:
+	```
+
+	Examples:
+
     - To disable auto-stuff inside single and also double quotes.
       And less than 3 chars before the cursor.
       zstyle ':auto-fu:var' autoable-function/skipwords \
@@ -185,6 +209,7 @@ The auto-fu features can be configured via zstyle.
     - To disable after the 'aptitude word '.
       zstyle ':auto-fu:var' autoable-function/skiplines \
         '([[:print:]]##[[:space:]]##|(#s)[[:space:]]#)aptitude [[:print:]]# *'
+
   autoable-function/preds
     A list of functions to be called whether auto-stuff appropriate or not.
     These functions will be called with the arguments (above figure)
@@ -207,8 +232,11 @@ The auto-fu features can be configured via zstyle.
     A predicate function to determine whether auto-stuff could be
     appropriate. (Default `auto-fu-default-autoable-pred' implements the
     above autoablep-function/* functionality.)
-Configuration example
 
+Configuration example
+---
+
+```
 zstyle ':auto-fu:highlight' input bold
 zstyle ':auto-fu:highlight' completion fg=black,bold
 zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
@@ -216,6 +244,7 @@ zstyle ':auto-fu:var' postdisplay $'
 -azfu-'
 zstyle ':auto-fu:var' track-keymap-skip opp
 #zstyle ':auto-fu:var' disable magic-space
+```
 
 XXX: use with the error correction or _match completer.
 If you got the correction errors during auto completing the word, then
@@ -229,6 +258,9 @@ XXX: ignoreeof semantics changes for overriding ^D.
 You cannot change the ignoreeof option interactively. I'm verry sorry.
 To customize the ^D behavior further, it will be done for example above
 auto-fu-zcomple manual's EXAMPLE section's code. Please take a look.
+
+TODO:
+---
 
 TODO: play nice with zsh-syntax-highlighting.
 TODO: http://d.hatena.ne.jp/tarao/20100531/1275322620
@@ -248,6 +280,7 @@ sometimes extra &lt;TAB&gt; key is needed to enter the menu select,
 sometimes is *not* needed. (already be entered menu select state.)
 
 History
+---
 
 v0.0.1.12
 fix some options potentially will be reset during the auto-stuff.
